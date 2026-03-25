@@ -1,0 +1,140 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>FlipDeck — Flashcard Studio</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@700;900&family=DM+Mono:wght@400;500&family=DM+Sans:wght@300;400;500&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="style.css"/>
+</head>
+<body>
+
+  <!-- SIDEBAR -->
+  <aside class="sidebar" id="sidebar">
+    <div class="sidebar-header">
+      <div class="logo">FlipDeck</div>
+      <div class="logo-sub">Flashcard Studio</div>
+    </div>
+
+    <div class="sidebar-section">
+      <div class="sidebar-label">Folders</div>
+      <ul class="folder-list" id="folderList"></ul>
+      <button class="btn-ghost" id="addFolderBtn">+ New Folder</button>
+    </div>
+
+    <div class="sidebar-footer">
+      <div id="totalCount" class="stat-chip">0 cards total</div>
+    </div>
+  </aside>
+
+  <!-- MAIN -->
+  <main class="main" id="main">
+
+    <!-- TOP BAR -->
+    <header class="topbar">
+      <div class="topbar-left">
+        <button class="hamburger" id="hamburger">☰</button>
+        <h1 class="folder-title" id="folderTitle">Select a folder</h1>
+      </div>
+      <div class="topbar-right">
+        <button class="btn-outline" id="playBtn" disabled>▶ Play Mode</button>
+        <button class="btn-primary" id="addCardBtn" disabled>+ Add Card</button>
+      </div>
+    </header>
+
+    <!-- CARD GRID -->
+    <section class="card-grid" id="cardGrid">
+      <div class="empty-state" id="emptyState">
+        <div class="empty-icon">🗂</div>
+        <p>Select or create a folder to get started.</p>
+      </div>
+    </section>
+
+  </main>
+
+  <!-- MODAL: Add/Edit Card -->
+  <div class="modal-overlay" id="cardModal">
+    <div class="modal">
+      <div class="modal-header">
+        <h2 id="modalTitle">Add New Card</h2>
+        <button class="modal-close" id="closeCardModal">✕</button>
+      </div>
+      <div class="modal-body">
+        <label>Front (Term / Question)</label>
+        <textarea id="cardFront" rows="3" placeholder="e.g. Ephemeral"></textarea>
+        <label>Back (Definition / Answer)</label>
+        <textarea id="cardBack" rows="3" placeholder="e.g. Lasting for a very short time"></textarea>
+      </div>
+      <div class="modal-footer">
+        <button class="btn-ghost" id="cancelCardModal">Cancel</button>
+        <button class="btn-primary" id="saveCardBtn">Save Card</button>
+      </div>
+    </div>
+  </div>
+
+  <!-- MODAL: Add Folder -->
+  <div class="modal-overlay" id="folderModal">
+    <div class="modal modal-sm">
+      <div class="modal-header">
+        <h2>New Folder</h2>
+        <button class="modal-close" id="closeFolderModal">✕</button>
+      </div>
+      <div class="modal-body">
+        <label>Folder Name</label>
+        <input type="text" id="folderNameInput" placeholder="e.g. Spanish Vocab" />
+        <label style="margin-top:14px;">Color</label>
+        <div class="color-picker" id="colorPicker">
+          <span class="color-dot selected" data-color="#e8624a" style="background:#e8624a"></span>
+          <span class="color-dot" data-color="#6a7fdb" style="background:#6a7fdb"></span>
+          <span class="color-dot" data-color="#50b584" style="background:#50b584"></span>
+          <span class="color-dot" data-color="#d4a84b" style="background:#d4a84b"></span>
+          <span class="color-dot" data-color="#b06fd8" style="background:#b06fd8"></span>
+          <span class="color-dot" data-color="#45b7c8" style="background:#45b7c8"></span>
+        </div>
+      </div>
+      <div class="modal-footer">
+        <button class="btn-ghost" id="cancelFolderModal">Cancel</button>
+        <button class="btn-primary" id="saveFolderBtn">Create</button>
+      </div>
+    </div>
+  </div>
+
+  <!-- PLAY MODE OVERLAY -->
+  <div class="play-overlay" id="playOverlay">
+    <div class="play-header">
+      <div class="play-title" id="playFolderName">Study Session</div>
+      <div class="play-progress" id="playProgress">1 / 1</div>
+      <button class="btn-ghost" id="exitPlayBtn">✕ Exit</button>
+    </div>
+
+    <div class="play-arena">
+      <button class="nav-btn" id="prevBtn">‹</button>
+
+      <div class="flip-card-wrap" id="flipCardWrap">
+        <div class="flip-card" id="flipCard">
+          <div class="flip-face flip-front">
+            <div class="face-label">FRONT</div>
+            <div class="face-content" id="playFront"></div>
+          </div>
+          <div class="flip-face flip-back">
+            <div class="face-label">BACK</div>
+            <div class="face-content" id="playBack"></div>
+          </div>
+        </div>
+      </div>
+
+      <button class="nav-btn" id="nextBtn">›</button>
+    </div>
+
+    <div class="play-actions">
+      <button class="btn-outline" id="flipBtn">🔄 Flip Card</button>
+      <button class="btn-outline" id="shuffleBtn">🔀 Shuffle</button>
+    </div>
+
+    <div class="play-hint">Click the card or press Space to flip · Arrow keys to navigate</div>
+  </div>
+
+  <script src="app.js"></script>
+</body>
+</html>
